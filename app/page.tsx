@@ -1,12 +1,8 @@
-import { db } from "@/lib/db";
+import Button from "@/components/ui/Button";
 
 export default function Home() {
 
-  db.set('hi', 'hi')
-
   return (
-    <main className='text-red-500'>
-      hi
-    </main>
+    <Button>Hello</Button>
   );
 }

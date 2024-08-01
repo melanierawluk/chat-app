@@ -16,8 +16,10 @@ function getGoogleCredentials() {
         throw new Error('Missing GOOGLE_CLIENT_SECRET');
     }
 
+    //returns variables of stored credentials for access elsewhere
     return { clientId, clientSecret };
 }
+
 
 export const authOptions: NextAuthOptions = {
     adapter: UpstashRedisAdapter(db),

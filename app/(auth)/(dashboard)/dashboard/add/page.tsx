@@ -1,3 +1,4 @@
+import AddFriendButton from "@/components/ui/AddFriendButton";
 
 export default function page() {
     return (

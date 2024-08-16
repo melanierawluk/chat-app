@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from 'next/link';
 import { Icon, Icons } from "@/components/ui/Icons";
 import Image from 'next/image'
+import SignOutButton from '../../../components/ui/SignOutButton'
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -42,7 +43,7 @@ export default async function Layout({ children }: LayoutProps) {
 				</div>
 				<nav className="flex flex-1 flex-col">
 					<ul role="list" className="flex flex-1 flex-col gap-y-7">
-						<li>Chats that this user has</li>
+						<li>Chats listed here</li>
 						<li>
 							<div className="text-xs font-semibold leading-6 text-gray-400">
 								Overview
@@ -84,6 +85,7 @@ export default async function Layout({ children }: LayoutProps) {
 									<span className="text-xs text-zinc-400" aria-hidden='true'>{session.user.email}</span>
 								</div>
 							</div>
+							<SignOutButton className='h-full aspect-square' />
 						</li>
 					</ul>
 				</nav>

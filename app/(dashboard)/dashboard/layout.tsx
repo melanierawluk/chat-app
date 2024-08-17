@@ -26,10 +26,11 @@ const sidebarOptions: SidebarOption[] = [
 	}
 ]
 
-export default async function Layout({ children }: LayoutProps) {
+export default async function DashboardLayout({ children }: LayoutProps) {
 
 	const session = await getServerSession(authOptions);
 	if (!session) notFound();
+
 
 	return (
 		<section className="w-full flex h-screen">

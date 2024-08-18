@@ -14,6 +14,3 @@ const Page = async ({ }) => {
 }
 
 export default Page
-
-/////////////////
-// youtube timestamp 2:54:22

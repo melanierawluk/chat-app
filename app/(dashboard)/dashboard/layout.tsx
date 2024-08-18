@@ -2,9 +2,11 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import Link from 'next/link';
-import { Icon, Icons } from "@/components/ui/Icons";
+import { Icon, Icons } from "@/components/Icons";
 import Image from 'next/image'
-import SignOutButton from '../../../components/ui/SignOutButton'
+import SignOutButton from "@/components/SignOutButton";
+import FriendRequestSidebarOptions from "@/components/FriendRequestSidebarOptions";
+import { fetchRedis } from "@/helpers/redis";
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -31,6 +33,11 @@ export default async function DashboardLayout({ children }: LayoutProps) {
 	const session = await getServerSession(authOptions);
 	if (!session) notFound();
 
+	const unseenRequestCount = (await fetchRedis(
+		'smembers',
+		`user:${session.user.id}:incoming_friend_requests`
+	) as User[]
+	).length
 
 	return (
 		<section className="w-full flex h-screen">
@@ -68,6 +75,11 @@ export default async function DashboardLayout({ children }: LayoutProps) {
 								})}
 
 							</ul>
+						</li>
+						<li>
+							<FriendRequestSidebarOptions
+								sessionId={session.user.id}
+								initialUnseenRequestCount={unseenRequestCount} />
 						</li>
 						<li className="-mx-6 mt-auto flex items-center">
 							<div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">

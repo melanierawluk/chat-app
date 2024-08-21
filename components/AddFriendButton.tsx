@@ -7,12 +7,11 @@ import { z } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form';
 
-type AddFriendButtonProps = {}
+interface AddFriendButtonProps { }
 type FormData = z.infer<typeof addFriendValidator>
 
 export default function AddFriendButton({ }: AddFriendButtonProps) {
     const [successState, setSuccessState] = useState<boolean>(false)
-
     const {
         register,
         handleSubmit,
@@ -35,13 +34,14 @@ export default function AddFriendButton({ }: AddFriendButtonProps) {
         } catch (error) {
             if (error instanceof z.ZodError) {
                 setError('email', { message: error.message })
-                return;
+                return
             }
 
             if (error instanceof AxiosError) {
                 setError('email', { message: error.response?.data })
-                return;
+                return
             }
+
             setError('email', { message: 'Something went wrong.' })
         }
     }

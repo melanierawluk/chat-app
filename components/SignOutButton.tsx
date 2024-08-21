@@ -9,24 +9,25 @@ import { Loader2, LogOut } from "lucide-react";
 interface SignOutButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { }
 
 export default function SignOutButton({ ...props }: SignOutButtonProps) {
-    const [isSignedOut, setIsSignedOut] = useState<boolean>(false);
-
+    const [isSignedOut, setIsSignedOut] = useState<boolean>(false)
     return (
-        <Button {...props} variant='ghost' onClick={async () => {
-            setIsSignedOut(true)
-            try {
-                await signOut()
-            } catch (error) {
-                toast.error('There was a problem signing out')
-            } finally {
-                setIsSignedOut(false)
-            }
-        }}>
+        <Button
+            {...props}
+            variant='ghost'
+            onClick={async () => {
+                setIsSignedOut(true)
+                try {
+                    await signOut()
+                } catch (error) {
+                    toast.error('There was a problem signing out')
+                } finally {
+                    setIsSignedOut(false)
+                }
+            }}>
             {isSignedOut ? (
-                <Loader2 className="animate-spin h-4 w-4" />
-
+                <Loader2 className='animate-spin h-4 w-4' />
             ) : (
-                <LogOut className="w-4 h-4" />
+                <LogOut className='w-4 h-4' />
             )}
         </Button>
     )

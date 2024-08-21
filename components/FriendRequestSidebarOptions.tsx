@@ -7,7 +7,6 @@ import { useState } from "react";
 interface FriendRequestSidebarOptionsProps {
     sessionId: string
     initialUnseenRequestCount: number
-
 }
 
 export default function FriendRequestSidebarOptionsProps({

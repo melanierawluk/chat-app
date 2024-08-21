@@ -27,7 +27,7 @@ export default function FriendRequests({
             prev.filter((request) => request.senderId !== senderId)
         )
 
-        router.refresh();
+        router.refresh()
     }
 
     // Deny friend API call
@@ -38,7 +38,7 @@ export default function FriendRequests({
             prev.filter((request) => request.senderId !== senderId)
         )
 
-        router.refresh();
+        router.refresh()
     }
 
     return (
@@ -61,7 +61,7 @@ export default function FriendRequests({
                             onClick={() => denyFriend(request.senderId)}
                             aria-label='deny friend'
                             className='w-8 h-8 bg-red-600 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md'>
-                            <X />
+                            <X className='font-semibold text-white w-3/4 h-3/4' />
                         </button>
                     </div>
                 ))

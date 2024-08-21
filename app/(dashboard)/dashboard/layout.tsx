@@ -24,19 +24,20 @@ const sidebarOptions: SidebarOption[] = [
 		id: 1,
 		name: 'Add friend',
 		href: '/dashboard/add',
-		Icon: 'UserPlus'
-	}
+		Icon: 'UserPlus',
+	},
 ]
 
-export default async function DashboardLayout({ children }: LayoutProps) {
+export default async function Layout({ children }: LayoutProps) {
 
-	const session = await getServerSession(authOptions);
-	if (!session) notFound();
+	const session = await getServerSession(authOptions)
+	if (!session) notFound()
 
-	const unseenRequestCount = (await fetchRedis(
-		'smembers',
-		`user:${session.user.id}:incoming_friend_requests`
-	) as User[]
+	const unseenRequestCount = (
+		(await fetchRedis(
+			'smembers',
+			`user:${session.user.id}:incoming_friend_requests`
+		)) as User[]
 	).length
 
 	return (

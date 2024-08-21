@@ -30,7 +30,6 @@ export interface ButtonProps
     isLoading?: boolean
 }
 
-
 export default function Button({
     className,
     children,
@@ -40,8 +39,11 @@ export default function Button({
     ...props }: ButtonProps) {
 
     return (
-        <button className={cn(buttonVariants({ variant, size, className }))} disabled={isLoading}{...props}>
-            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+        <button
+            className={cn(buttonVariants({ variant, size, className }))}
+            disabled={isLoading}
+            {...props}>
+            {isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : null}
             {children}
         </button>
     )

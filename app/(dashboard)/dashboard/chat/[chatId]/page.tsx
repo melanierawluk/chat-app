@@ -36,19 +36,25 @@ const getChatMessages = async (chatId: string) => {
 
 export default async function page({ params }: pageProps) {
 
-    const { chatId } = params;
     const session = await getServerSession(authOptions);
     if (!session) notFound();
 
+    // Get currently authed user from the session object
     const { user } = session;
-    const [userId1, userId2] = chatId.split('--')
+    const { chatId } = params;
+    const [userId1, userId2] = chatId.split('--');
 
     if (user.id !== userId1 && user.id !== userId2) {
         notFound();
     }
 
     const chatPartnerId = user.id === userId1 ? userId2 : userId1;
-    const chatPartner = (await db.get(`user:${chatPartnerId}`)) as User;
+
+    const chatPartnerRaw = (await fetchRedis(
+        'get',
+        `user:${chatPartnerId}`
+    )) as string;
+    const chatPartner = JSON.parse(chatPartnerRaw) as User;
     const initialMessages = await getChatMessages(chatId);
 
     return (
@@ -66,8 +72,19 @@ export default async function page({ params }: pageProps) {
                             />
                         </div>
                     </div>
+                    <div className="flex flex-col leading-tight">
+                        <div className="text-xl flex items-center">
+                            <span className="text-gray-700 mr-3 font-semibold">
+                                {chatPartner.name}
+                            </span>
+                        </div>
+                        <span className="text-sm text-gray-600">
+                            {chatPartner.email}
+                        </span>
+                    </div>
                 </div>
             </div>
+            <Messages />
         </div>
     )
 }

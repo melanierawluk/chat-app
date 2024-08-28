@@ -2,32 +2,28 @@ import ChatInput from "@/components/ChatInput";
 import Messages from "@/components/Messages";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
-import { db } from "@/lib/db";
 import { messageArrayValidator } from "@/lib/validations/message";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-
-interface pageProps {
+interface PageProps {
     params: {
         chatId: string
     }
 }
 
-const getChatMessages = async (chatId: string) => {
+async function getChatMessages(chatId: string) {
     try {
         const results: string[] = await fetchRedis(
             'zrange',
             `chat:${chatId}:messages`,
             0,
             -1
-        );
+        )
 
         const dbMessages = results.map((message) => JSON.parse(message) as Message);
-
         const reversedDbMessages = dbMessages.reverse();
-
         const messages = messageArrayValidator.parse(reversedDbMessages);
 
         return messages;
@@ -36,14 +32,15 @@ const getChatMessages = async (chatId: string) => {
     }
 }
 
-export default async function page({ params }: pageProps) {
+export default async function Page({ params }: PageProps) {
 
-    const session = await getServerSession(authOptions);
-    if (!session) notFound();
+    const { chatId } = params
 
     // Get currently authed user from the session object
+    const session = await getServerSession(authOptions);
+    if (!session) notFound();
     const { user } = session;
-    const { chatId } = params;
+
     const [userId1, userId2] = chatId.split('--');
 
     if (user.id !== userId1 && user.id !== userId2) {
@@ -74,20 +71,29 @@ export default async function page({ params }: pageProps) {
                             />
                         </div>
                     </div>
+
                     <div className="flex flex-col leading-tight">
                         <div className="text-xl flex items-center">
                             <span className="text-gray-700 mr-3 font-semibold">
                                 {chatPartner.name}
                             </span>
                         </div>
+
                         <span className="text-sm text-gray-600">
                             {chatPartner.email}
                         </span>
                     </div>
                 </div>
             </div>
-            <Messages sessionId={session.user.id} initialMessages={initialMessages} />
-            <ChatInput chatPartner={chatPartner} chatId={chatId} />
+
+            <Messages
+                chatId={chatId}
+                chatPartner={chatPartner}
+                sessionImg={session.user.image}
+                sessionId={session.user.id}
+                initialMessages={initialMessages}
+            />
+            <ChatInput chatId={chatId} chatPartner={chatPartner} />
         </div>
     )
 }

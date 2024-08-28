@@ -114,7 +114,7 @@ export default async function Layout({ children }: LayoutProps) {
 					</ul>
 				</nav>
 			</div>
-			{children}
+			<aside className="max-h-screen container py-16 md:py-12">{children}</aside>
 		</section>
 	);
 }

@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Button from './ui/Button';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 interface ChatInputProps {
     chatPartner: User
@@ -25,8 +26,12 @@ export default function ChatInput({
                 text: input,
                 chatId
             })
+            setInput('')
+            textareaRef.current?.focus()
         } catch (error) {
-
+            toast.error('Something went wrong. Try again later.')
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -60,8 +65,8 @@ export default function ChatInput({
                 <div className='absolute right-0 bottom-0 flex justify-between y-2 pl-3 pr-2'>
                     <div className='flex-shrink-0'>
                         <Button
-                            onClick={sendMessage}
                             type='submit'
+                            onClick={sendMessage}
                             isLoading={isLoading}>
                             Post
                         </Button>

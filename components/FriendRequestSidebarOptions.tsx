@@ -39,8 +39,7 @@ export default function FriendRequestSidebarOptionsProps({
                 'incoming_friend_requests', friendRequestHandler);
         }
 
-
-    }, [])
+    }, [sessionId])
 
     return (
         <Link

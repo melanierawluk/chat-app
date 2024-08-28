@@ -6,7 +6,6 @@ interface loadingProps { }
 export default function loading({ }: loadingProps) {
 
     return (
-
         <div className='flex flex-col h-full items-center'>
             <Skeleton className='mb-4' height={40} width={400} />
             {/* chat messages */}

@@ -21,10 +21,6 @@ export default function FriendRequests({
         incomingFriendRequests
     )
 
-    const friendRequestHandler = () => {
-
-    }
-
     useEffect(() => {
         pusherClient.subscribe(
             toPusherKey(`user:${sessionId}:incoming_friend_requests`)
@@ -45,8 +41,7 @@ export default function FriendRequests({
                 'incoming_friend_requests', friendRequestHandler);
         }
 
-
-    }, [])
+    }, [sessionId])
 
     // Accept friend API call
     const acceptFriend = async (senderId: string) => {

@@ -8,9 +8,9 @@ import { getServerSession } from 'next-auth'
 import { z } from 'zod'
 
 export async function POST(req: Request) {
+
     try {
         const body = await req.json()
-
         const { email: emailToAdd } = addFriendValidator.parse(body.email)
 
         const idToAdd = (await fetchRedis(
@@ -57,7 +57,6 @@ export async function POST(req: Request) {
         }
 
         // valid request, send friend request
-
         await pusherServer.trigger(
             toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
             'incoming_friend_requests',

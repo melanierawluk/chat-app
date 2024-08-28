@@ -6,14 +6,14 @@ import { User } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-interface FriendRequestSidebarOptionsProps {
+interface FriendRequestSidebarProps {
     sessionId: string
     initialUnseenRequestCount: number
 }
 
-export default function FriendRequestSidebarOptionsProps({
+export default function FriendRequestSidebar({
     sessionId,
-    initialUnseenRequestCount }: FriendRequestSidebarOptionsProps) {
+    initialUnseenRequestCount }: FriendRequestSidebarProps) {
 
     const [unseenRequestCount, setUnseenRequestCount] = useState<number>(
         initialUnseenRequestCount

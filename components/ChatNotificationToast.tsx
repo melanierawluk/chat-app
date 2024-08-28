@@ -3,7 +3,7 @@ import Image from "next/image"
 import toast, { Toast } from "react-hot-toast"
 
 
-interface UnseenChatToastProps {
+interface ChatNotificationToastProps {
     t: Toast
     sessionId: string
     senderId: string
@@ -12,13 +12,13 @@ interface UnseenChatToastProps {
     senderMessage: string
 }
 
-export default function UnseenChatToast({
+export default function ChatNotificationToast({
     t,
     sessionId,
     senderId,
     senderImg,
     senderName,
-    senderMessage }: UnseenChatToastProps) {
+    senderMessage }: ChatNotificationToastProps) {
 
     return (
         <div className={cn('max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opactiy-5',

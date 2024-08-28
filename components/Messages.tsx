@@ -56,7 +56,7 @@ export default function Messages({
         // Full message area
         <section
             id="messages"
-            className="flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+            className="flex h-full flex-1 flex-col-reverse gap-2 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             <div ref={scrollDownRef} />
 
             {/* Iterate over each message */}
@@ -70,7 +70,14 @@ export default function Messages({
                     // Single message row
                     <article className='chat-message' key={`${message.id}-${message.timestamp}`}>
                         <div className={cn('flex items-end', { 'justify-end': isCurrentUser, })}>
+                            {/* Timestamp */}
+                            <span className={cn('ml-2 text-xs text-gray-400 self-center', {
+                                'order-1 items-end': isCurrentUser,
+                                'order-3 items-start ': !isCurrentUser,
 
+                            })}>
+                                {formatTimestamp(message.timestamp)}
+                            </span>
                             {/* Message bubble */}
                             <div className={cn('flex flex-col space-y-2 text-base max-w-xs mx-2',
                                 {
@@ -78,8 +85,8 @@ export default function Messages({
                                     'order-2 items-start': !isCurrentUser,
                                 }
                             )}>
-                                <span className={cn('px-4 py-2 rounded-lg inline-block', {
-                                    'bg-teal-500 text-white': isCurrentUser,
+                                <span className={cn('px-4 py-2 rounded-xl inline-block', {
+                                    'bg-purple-500 text-white': isCurrentUser,
                                     'bg-gray-200 text-gray-900': !isCurrentUser,
                                     'rounded-br-none':
                                         !hasNextMessageFromSameUser && isCurrentUser,
@@ -87,10 +94,9 @@ export default function Messages({
                                         !hasNextMessageFromSameUser && !isCurrentUser,
                                 })}>
                                     {message.text}{' '}
-                                    <span className='ml-2 text-xs text-gray-400'>
-                                        {formatTimestamp(message.timestamp)}
-                                    </span>
+
                                 </span>
+
                             </div>
 
                             {/* Profile photo next to message bubble*/}

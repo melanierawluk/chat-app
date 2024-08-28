@@ -5,7 +5,7 @@ import { chatHrefConstructor, toPusherKey } from "@/lib/utils"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import UnseenChatToast from "./UnseenChatToast"
+import ChatNotificationToast from "./ChatNotificationToast"
 
 
 interface SidebarChatListProps {
@@ -42,7 +42,7 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
             if (!shouldNotify) return;
 
             toast.custom((t) => (
-                <UnseenChatToast
+                <ChatNotificationToast
                     t={t}
                     sessionId={sessionId}
                     senderId={message.senderId}

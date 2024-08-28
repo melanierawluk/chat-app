@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { Icon, Icons } from "@/components/Icons";
 import Image from 'next/image'
 import SignOutButton from "@/components/SignOutButton";
-import FriendRequestSidebarOptions from "@/components/FriendRequestSidebarOptions";
 import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
 import SidebarChatList from "@/components/SidebarChatList";
+import FriendRequestSidebar from "@/components/FriendRequestSidebar";
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -86,7 +86,7 @@ export default async function Layout({ children }: LayoutProps) {
 								})}
 
 								<li>
-									<FriendRequestSidebarOptions
+									<FriendRequestSidebar
 										sessionId={session.user.id}
 										initialUnseenRequestCount={unseenRequestCount} />
 								</li>

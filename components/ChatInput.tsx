@@ -52,8 +52,8 @@ export default function ChatInput({
                     rows={1}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder={`Message ${chatPartner.name}`}
-                    className='block w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6'
+                    placeholder={`Type your message here`}
+                    className='block w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:py-2 sm:text-sm sm:leading-6'
                 />
 
                 <div

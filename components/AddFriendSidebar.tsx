@@ -6,15 +6,15 @@ import { Check, UserPlus, X } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-interface FriendRequestsProps {
+interface AddFriendSidebarProps {
     incomingFriendRequests: IncomingFriendRequest[]
     sessionId: string
 }
 
-export default function FriendRequests({
+export default function AddFriendSidebar({
     incomingFriendRequests,
     sessionId
-}: FriendRequestsProps) {
+}: AddFriendSidebarProps) {
 
     const router = useRouter()
     const [friendRequests, setFriendRequests] = useState<IncomingFriendRequest[]>(

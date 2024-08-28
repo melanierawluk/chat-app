@@ -1,6 +1,6 @@
-import { chatHrefConstuctor, cn } from "@/lib/utils";
-import Image from "next/image";
-import toast, { Toast } from "react-hot-toast";
+import { chatHrefConstructor, cn } from "@/lib/utils"
+import Image from "next/image"
+import toast, { Toast } from "react-hot-toast"
 
 
 interface UnseenChatToastProps {
@@ -29,7 +29,7 @@ export default function UnseenChatToast({
         )}>
             <a
                 onClick={() => toast.dismiss(t.id)}
-                href={`/dashboard/chat${chatHrefConstuctor(
+                href={`/dashboard/chat${chatHrefConstructor(
                     sessionId,
                     senderId
                 )}`}

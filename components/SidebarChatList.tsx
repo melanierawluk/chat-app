@@ -1,11 +1,11 @@
 'use client'
 
-import { pusherClient } from "@/lib/pusher";
-import { chatHrefConstuctor, toPusherKey } from "@/lib/utils";
+import { pusherClient } from "@/lib/pusher"
+import { chatHrefConstructor, toPusherKey } from "@/lib/utils"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import toast from "react-hot-toast";
-import UnseenChatToast from "./UnseenChatToast";
+import toast from "react-hot-toast"
+import UnseenChatToast from "./UnseenChatToast"
 
 
 interface SidebarChatListProps {
@@ -33,23 +33,26 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
         }
 
         const chatHandler = (message: ExtendedMessage) => {
-            const shouldNotify = pathname !==
-                `/dashboard/chat/${chatHrefConstuctor(sessionId, message.senderId)}`
+            // Checks which page user is on - should only notify if not within chat
+
+            const shouldNotify =
+                pathname !==
+                `/dashboard/chat/${chatHrefConstructor(sessionId, message.senderId)}`
 
             if (!shouldNotify) return;
 
             toast.custom((t) => (
-                toast.custom((t) => (
-                    <UnseenChatToast
-                        t={t}
-                        sessionId={sessionId}
-                        senderId={message.senderId}
-                        senderImg={message.senderImg}
-                        senderMessage={message.text}
-                        senderName={message.senderName}
-                    />
-                ))
+                <UnseenChatToast
+                    t={t}
+                    sessionId={sessionId}
+                    senderId={message.senderId}
+                    senderImg={message.senderImg}
+                    senderMessage={message.text}
+                    senderName={message.senderName}
+                />
             ));
+
+            setUnseenMessages((prev) => [...prev, message]);
         }
 
         pusherClient.bind('new_message', chatHandler);
@@ -58,8 +61,11 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
         return () => {
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
+
+            pusherClient.unbind('new_message', chatHandler);
+            pusherClient.unbind('new_friend', newFriendHandler);
         }
-    }, [])
+    }, [pathname, sessionId, router]);
 
     useEffect(() => {
         if (pathname?.includes('chat')) {
@@ -67,7 +73,7 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
                 return prev.filter((msg) => !pathname.includes(msg.senderId));
             })
         }
-    }, [pathname])
+    }, [pathname]);
 
     return (
         <ul role='list' className="max-h-[25rem] overflow-y-auto -mx-2 space-y-1">
@@ -77,7 +83,7 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
                 }).length;
 
                 return <li key={friend.id}>
-                    <a href={`/dashboard/chat/${chatHrefConstuctor(
+                    <a href={`/dashboard/chat/${chatHrefConstructor(
                         sessionId,
                         friend.id
                     )}`}

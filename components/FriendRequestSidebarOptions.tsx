@@ -1,10 +1,10 @@
 'use client'
 
-import { pusherClient } from "@/lib/pusher";
-import { toPusherKey } from "@/lib/utils";
-import { User } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { pusherClient } from "@/lib/pusher"
+import { toPusherKey } from "@/lib/utils"
+import { User } from "lucide-react"
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
 interface FriendRequestSidebarOptionsProps {
     sessionId: string

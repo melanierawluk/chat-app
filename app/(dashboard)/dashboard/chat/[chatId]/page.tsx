@@ -1,3 +1,4 @@
+import Messages from "@/components/Messages";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -84,7 +85,7 @@ export default async function page({ params }: pageProps) {
                     </div>
                 </div>
             </div>
-            <Messages />
+            <Messages initialMessages={initialMessages} />
         </div>
     )
 }

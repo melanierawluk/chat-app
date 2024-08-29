@@ -1,4 +1,4 @@
-import AddFriendSidebar from "@/components/AddFriendSidebar";
+import FriendRequestList from "@/components/FriendRequestList";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
@@ -28,9 +28,9 @@ export default async function Page() {
 
     return (
         <main className='pt-8'>
-            <h1 className='font-bold text-5xl mb-8'>Add a friend</h1>
+            <h1 className='font-bold text-3xl mb-8'>Friend Requests</h1>
             <div className='flex flex-col gap-4'>
-                <AddFriendSidebar
+                <FriendRequestList
                     incomingFriendRequests={incomingFriendRequests}
                     sessionId={session.user.id}
                 />

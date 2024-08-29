@@ -8,10 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 
-interface AddFriendButtonProps { }
+interface AddFriendFormProps { }
 type FormData = z.infer<typeof addFriendValidator>
 
-export default function AddFriendButton({ }: AddFriendButtonProps) {
+export default function AddFriendForm({ }: AddFriendFormProps) {
     const [successState, setSuccessState] = useState<boolean>(false)
     const {
         register,

@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import Link from 'next/link';
 import { Icon, Icons } from "@/components/Icons";
-import Image from 'next/image'
 import SignOutButton from "@/components/SignOutButton";
 import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
@@ -45,66 +44,37 @@ export default async function Layout({ children }: LayoutProps) {
 	).length
 
 	return (
-		<section className="bg-red-400 w-full flex h-screen">
-			<aside className="">
-				<nav className="flex flex-1 flex-col">
-					<ul role="list" className="flex flex-1 flex-col gap-y-7">
-						{/* <li>
-							<SidebarChatList friends={friends} sessionId={session.user.id} />
-						</li> */}
-						<li>
-							{/* <div className="text-xs font-semibold leading-6 text-gray-400">
-								Overview
-							</div> */}
-							<ul role="list" className="-mx-1 mt-2 space-y-1">
-								{sidebarOptions.map((option) => {
-									const Icon = Icons[option.Icon]
-									return (
-										<li key={option.id}>
-											<Link href={option.href}
-												className="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold">
-												<span className="text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white">
-													<Icon className="h-4 w-4" />
-												</span>
-												<span className="truncate">
-													{option.name}
-												</span>
-											</Link>
-										</li>
-									)
-								})}
+		<section className="w-full flex h-screen">
 
-								<li>
-									<FriendRequestSidebar
-										sessionId={session.user.id}
-										initialUnseenRequestCount={unseenRequestCount} />
-								</li>
-							</ul>
-						</li>
-						<li className="-mx-6 mt-auto flex items-center">
-							<div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
-								<div className="relative h-8 w-8 bg-gray-50">
-									<Image
-										fill
-										referrerPolicy='no-referrer'
-										className='rounded-full'
-										src={session.user.image || ''}
-										alt='Your profile photo'
-									/>
-								</div>
-								<span className="sr-only">Your Profile</span>
-								<div className="flex flex-col">
-									<span aria-hidden='true'>{session.user.name}</span>
-									<span className="text-xs text-zinc-400" aria-hidden='true'>{session.user.email}</span>
-								</div>
-							</div>
-							<SignOutButton className='h-full aspect-square' />
-						</li>
-					</ul>
-				</nav>
+			{/* Left sidebar/navigation */}
+			<nav className="flex flex-1 flex-col border border-r-1">
+				<ul role="list" className="mt-10">
+					{sidebarOptions.map((option) => {
+						const Icon = Icons[option.Icon]
+						return (
+							<li key={option.id}>
+								<Link href={option.href}
+									className="flex rounded-md p-4 ">
+									<span className="text-gray-600 border-gray-300 flex h-10 w-10 items-center justify-center rounded-lg border ">
+										<Icon className="h-4 w-4" />
+									</span>
+								</Link>
+							</li>
+						)
+					})}
 
-			</aside>
+					<li>
+						<FriendRequestSidebar
+							sessionId={session.user.id}
+							initialUnseenRequestCount={unseenRequestCount} />
+					</li>
+				</ul>
+				<div className=" mt-auto flex items-center">
+					<SignOutButton className='h-full aspect-square' />
+				</div>
+			</nav>
 
+			{/* Chat list */}
 			<div className="flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
 				<Link href='/dashboard' className="flex h-16 shrink-0 items-center">
 					<Icons.Logo className="h-8 w-auto text-purple-600" />
@@ -118,9 +88,10 @@ export default async function Layout({ children }: LayoutProps) {
 				<div>
 					<SidebarChatList friends={friends} sessionId={session.user.id} />
 				</div>
-
 			</div>
-			<aside className="max-h-screen container py-16 md:py-12">
+
+			{/* Selected chat OR friends pages when either icon selected */}
+			<aside className="max-h-screen container py-6 px-0">
 				{children}
 			</aside>
 		</section>

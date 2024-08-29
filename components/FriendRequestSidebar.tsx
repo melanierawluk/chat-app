@@ -47,7 +47,7 @@ export default function FriendRequestSidebar({
             href='/dashboard/requests'
             className='flex items-center gap-x-3 p-4'
         >
-            <div className='text-gray-500 border-gray-200 group-hover:border-purple-600 group-hover:text-purple-600 flex h-10 w-10 items-center justify-center rounded-lg border bg-white'>
+            <div className='text-gray-600 border-gray-200 group-hover:border-purple-600 group-hover:text-purple-600 flex h-10 w-10 items-center justify-center rounded-lg border bg-white'>
                 <User className='h-4 w-4' />
             </div>
 

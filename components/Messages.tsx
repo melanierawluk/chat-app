@@ -56,7 +56,7 @@ export default function Messages({
         // Full message area
         <section
             id="messages"
-            className="flex h-full flex-1 flex-col-reverse gap-2 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+            className="bg-gray-50 flex h-full flex-col-reverse gap-2 px-6 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             <div ref={scrollDownRef} />
 
             {/* Iterate over each message */}
@@ -94,14 +94,12 @@ export default function Messages({
                                         !hasNextMessageFromSameUser && !isCurrentUser,
                                 })}>
                                     {message.text}{' '}
-
                                 </span>
-
                             </div>
 
                             {/* Profile photo next to message bubble*/}
                             <div
-                                className={cn('relative w-6 h-6', {
+                                className={cn('relative w-7 h-7', {
                                     'order-2': isCurrentUser,
                                     'order-1': !isCurrentUser,
                                     invisible: hasNextMessageFromSameUser,

@@ -28,7 +28,7 @@ export default function SignOutButton({ ...props }: SignOutButtonProps) {
             {isSignedOut ? (
                 <Loader2 className='animate-spin h-4 w-4' />
             ) : (
-                <LogOut className='w-4 h-4' />
+                <LogOut className='w-6 h-6' />
             )}
         </Button>
     )

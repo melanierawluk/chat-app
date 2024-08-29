@@ -8,6 +8,7 @@ import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
 import SidebarChatList from "@/components/SidebarChatList";
 import FriendRequestSidebar from "@/components/FriendRequestSidebar";
+import Image from "next/image";
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -69,7 +70,16 @@ export default async function Layout({ children }: LayoutProps) {
 							initialUnseenRequestCount={unseenRequestCount} />
 					</li>
 				</ul>
-				<div className=" mt-auto flex items-center">
+				<div className=" mt-auto flex items-center mb-2">
+					<div className='relative h-8 w-8 ml-2'>
+						<Image
+							fill
+							referrerPolicy='no-referrer'
+							className='rounded-full'
+							src={session.user.image || ''}
+							alt='Your profile picture'
+						/>
+					</div>
 					<SignOutButton className='h-full aspect-square' />
 				</div>
 			</nav>

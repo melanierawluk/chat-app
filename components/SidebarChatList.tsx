@@ -106,11 +106,11 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
                                     {friend.name}
                                 </div>
                                 <div className="font-normal">
-                                    Message here
+                                   // Message
                                 </div>
                             </div>
                             <div className="font-normal">
-                                Time
+                                // Time
                             </div>
 
 

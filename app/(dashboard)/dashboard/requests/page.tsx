@@ -27,7 +27,7 @@ export default async function Page() {
     )
 
     return (
-        <main className='pt-8'>
+        <main className='p-5'>
             <h1 className='font-bold text-3xl mb-8'>Friend Requests</h1>
             <div className='flex flex-col gap-4'>
                 <FriendRequestList

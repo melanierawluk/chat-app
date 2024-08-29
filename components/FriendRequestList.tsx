@@ -68,7 +68,7 @@ export default function FriendRequestList({
     return (
         <>
             {friendRequests.length === 0 ? (
-                <p className='text-sm text-zinc-500'>Nothing to show here...</p>
+                <p className='text-sm text-zinc-500'>Much empty. You should probably make some friends.</p>
             ) : (
                 friendRequests.map((request) => (
                     <div key={request.senderId} className='flex gap-4 items-center'>
@@ -77,7 +77,7 @@ export default function FriendRequestList({
                         <button
                             onClick={() => acceptFriend(request.senderId)}
                             aria-label='accept friend'
-                            className='w-8 h-8 bg-indigo-600 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-md'>
+                            className='w-8 h-8 bg-purple-600 hover:bg-purple-700 grid place-items-center rounded-full transition hover:shadow-md'>
                             <Check className='font-semibold text-white w-3/4 h-3/4' />
                         </button>
 

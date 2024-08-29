@@ -58,6 +58,8 @@ export default async function Page({ params }: PageProps) {
 
     return (
         <div className="flex-1 justify-between flex flex-col h-full mx-h-[calc(100vh-4rem)]">
+
+            {/* Chat page header */}
             <div className="flex sm:items-center justify-between border-b-2 border-gray-200 px-5">
                 <div className="relative flex items-center space-x-4 mb-3">
                     <div className="relative">

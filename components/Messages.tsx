@@ -1,9 +1,8 @@
 'use client'
 
 import { pusherClient } from "@/lib/pusher"
-import { cn, toPusherKey } from "@/lib/utils"
+import { cn, formatTimestamp, toPusherKey } from "@/lib/utils"
 import { Message } from "@/lib/validations/message"
-import { format } from "date-fns"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
@@ -48,15 +47,11 @@ export default function Messages({
 
     const scrollDownRef = useRef<HTMLDivElement | null>(null)
 
-    const formatTimestamp = (timestamp: number) => {
-        return format(timestamp, 'HH:mm')
-    }
-
     return (
         // Full message area
         <section
             id="messages"
-            className="bg-gray-50 flex h-full flex-col-reverse justify-end gap-2 px-6 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch mt-2">
+            className='bg-gray-50 flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'>
             <div ref={scrollDownRef} />
 
             {/* Iterate over each message */}

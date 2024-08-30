@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import ChatNotificationToast from "./ChatNotificationToast"
 import Image from "next/image"
+import { format } from "date-fns"
 
 
 interface SidebarChatListProps {
@@ -24,6 +25,8 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
     const router = useRouter();
     const pathname = usePathname();
     const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
+    const [mostRecentMessageText, setMostRecentMessageText] = useState<string>('');
+    const [mostRecentMessageTimestamp, setMostRecentMessageTimestamp] = useState<string>('');
 
     useEffect(() => {
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
@@ -35,7 +38,6 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
 
         const chatHandler = (message: ExtendedMessage) => {
             // Checks which page user is on - should only notify if not within chat
-
             const shouldNotify =
                 pathname !==
                 `/dashboard/chat/${chatHrefConstructor(sessionId, message.senderId)}`
@@ -54,6 +56,8 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
             ));
 
             setUnseenMessages((prev) => [...prev, message]);
+            setMostRecentMessageText(message.text)
+            setMostRecentMessageTimestamp(format(new Date(), 'HH:mm'));
         }
 
         pusherClient.bind('new_message', chatHandler);
@@ -75,6 +79,7 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
             })
         }
     }, [pathname]);
+
 
     return (
         // Single name in chat list
@@ -106,13 +111,12 @@ export default function SidebarChatList({ friends, sessionId }: SidebarChatListP
                                     {friend.name}
                                 </div>
                                 <div className="font-normal">
-                                   // Message
+                                    {mostRecentMessageText}
                                 </div>
                             </div>
                             <div className="font-normal">
-                                // Time
+                                {mostRecentMessageTimestamp}
                             </div>
-
 
                             {/* Notification badge */}
                             {unseenMessagesCount > 0 ? (

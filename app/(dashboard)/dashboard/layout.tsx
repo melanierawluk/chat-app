@@ -44,6 +44,7 @@ export default async function Layout({ children }: LayoutProps) {
 		)) as User[]
 	).length
 
+
 	return (
 		<section className="w-full flex h-screen">
 

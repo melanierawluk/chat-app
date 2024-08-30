@@ -1,5 +1,7 @@
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { format } from "date-fns"
+
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -13,3 +15,8 @@ export function chatHrefConstructor(id1: string, id2: string) {
 export function toPusherKey(key: string) {
     return key.replace(/:/g, '__')
 }
+
+export function formatTimestamp(timestamp: number | string) {
+    return format(timestamp, 'HH:mm')
+}
+
